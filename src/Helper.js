@@ -5,7 +5,7 @@ export const getCurrentDay = (data, title, fullData) => ({
   date: moment(data.applicable_date).format('MMMM Do'),
   location: title,
   temperature: Math.round(data.the_temp),
-  weatherIcon: `'https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`,
+  weatherIcon: `https://www.metaweather.com/static/img/weather/${data.weather_state_abbr}.svg`,
   weatherDescription: data.weather_state_name,
   currentTime: getCurrentTime(fullData.time)
 });
@@ -56,5 +56,5 @@ function getCurrentTime(time) {
     offset = `-${time.split('-')[3]}`;
   }
 
-  return (moment(time).utc().utcOffset(offset).format("HH:mm a"));
+  return (moment(time).utc().utcOffset(offset).format("h:mm a"));
 }

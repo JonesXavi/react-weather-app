@@ -4,13 +4,16 @@ import axios from 'axios';
 import { getCurrentDay, getUpcomingDays, getCurrentDayDetailed} from '../Helper';
 
 const BASE_URL = 'https://www.metaweather.com/api/location';
-const CROSS_DOMAIN = 'https://thingproxy.freeboard.io/fetch/';
+const CROSS_DOMAIN = 'https://jbx-cors-anywhere.herokuapp.com/';
 const REQUEST_URL = `${CROSS_DOMAIN}${BASE_URL}`;
 
 const useForecast = () => {
     const [isError, setError] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [forecast, setForecast] = useState(null);
+    const header = {
+        "Access-Control-Allow-Origin": "*"
+    };
 
     const getWoeid = async location => {
         let queryObject = { query: location };
@@ -19,7 +22,7 @@ const useForecast = () => {
             queryObject = { lattlong: `${location.lat},${location.long}` };
         }
 
-        const { data } = await axios(`${REQUEST_URL}/search`, { params: queryObject });
+        const { data } = await axios(`${REQUEST_URL}/search`, { params: queryObject }, {headers: header});
 
         if (!data || data.length === 0) {
             setError('There is no such location');
@@ -31,7 +34,7 @@ const useForecast = () => {
     };
 
     const getForecastData = async woeid => {
-        const { data } = await axios(`${REQUEST_URL}/${woeid}`);
+        const { data } = await axios(`${REQUEST_URL}/${woeid}`, {headers: header});
 
         if (!data || data.length === 0) {
             setError('Something went wrong');

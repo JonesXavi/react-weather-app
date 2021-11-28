@@ -15,23 +15,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const App = () => {
   const [{ themeName }] = useContext(ThemeContext);
   const { isError, isLoading, forecast, loadLocation } = useForecast();
-  const [lat, setLat] = useState([]);
-  const [long, setLong] = useState([]);
+  const [lat, setLat] = useState();
+  const [long, setLong] = useState();
+  const [mount, setMount] = useState(false);
 
   const onSubmit = value => {
     loadLocation(value);
   };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      setLat(position.coords.latitude);
-      setLong(position.coords.longitude);
-    });
-    if (typeof(lat) === 'number' && typeof(long) === 'number') {
-      loadLocation({lat, long});
-      return;
+    if(!mount) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        setLat(position.coords.latitude);
+        setLong(position.coords.longitude);
+      });
+      if (lat && long) {
+        loadLocation({lat, long});
+        setMount(true);
+      }
     }
-  }, [lat, long]);
+  }, [lat, long, mount, loadLocation]);
 
 
   return (
