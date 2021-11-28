@@ -1,0 +1,63 @@
+.common-card {
+  margin-bottom: 2rem !important;
+  width: 50%;
+}
+
+.input {
+  margin-bottom: 1rem;
+  float: left;
+  color: var(--clr-fg-alt);
+  border: 2px solid var(--clr-fg-alt);
+  padding: 1rem;
+  margin-right: 1rem;
+  width: 50%;
+}
+
+.button {
+  display: block;
+  cursor: pointer;
+  padding: 0.8em 1.4em;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease-in-out;
+  border-radius: 25px;
+}
+
+.button--outline {
+  color: var(--clr-fg-alt);
+  border: 2px solid var(--clr-fg-alt);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button--outline:hover,
+.button--outline:focus {
+  color: var(--clr-bg);
+}
+
+.button--outline:before {
+  content: '';
+  position: absolute;
+  background-color: var(--clr-fg-alt);
+  right: 100%;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  transition: right 0.2s ease-in-out;
+}
+
+.button--outline:hover:before,
+.button--outline:focus:before {
+  right: 0;
+}
+
+@media (max-width: 600px) {
+  .common-card{
+    width: 100%;
+  }
+  .input {
+    width: 100%;
+  }
+}

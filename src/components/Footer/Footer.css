@@ -1,0 +1,12 @@
+.footer {
+  text-align: center;
+  padding: 1rem;
+}
+.footer-text {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.heart {
+  color: red;
+}
